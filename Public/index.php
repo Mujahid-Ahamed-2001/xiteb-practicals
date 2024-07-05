@@ -17,10 +17,10 @@
         <form action="../handlers/login-handler.php">
             <div class="mb-4">
                 <label class="form-label">Email address</label>
-                <input type="text" class="form-control" placeholder="Enter your email address">
+                <input type="email" class="form-control" placeholder="Enter your email address">
             </div>
             <div class="mb-4">
-                <label class="form-label d-flex justify-content-between">Password <a href="forgot-password.php">Forgot password?</a></label>
+                <label class="form-label d-flex justify-content-between">Password </label>
                 <input type="password" class="form-control" placeholder="Enter your password">
             </div>
             <button type="submit" class="btn btn-primary btn-sign" name="sign-in">Sign In</button>

@@ -2,7 +2,6 @@
 .page-sign
 {
     background-image: url('../images/adminImages/login-background.jpg');
-    height: 100vh;
     background-size: cover;
     background-repeat: no-repeat;
     min-height: 100vh;
@@ -58,5 +57,9 @@
     font-family: "Archivo", sans-serif;
     letter-spacing: 1px;
     color: #fff;
+}
+.w-30
+{
+    width: 30%;
 }
 /* login css end  */
