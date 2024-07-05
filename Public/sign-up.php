@@ -63,39 +63,39 @@ if(isset($_SESSION["user_login"]))
             <div class="row">
                 <div class="col-md-6">
                     <div class="mb-4">
-                        <label class="form-label">Full Name</label>
+                        <label class="form-label">Full Name <span class="text-danger">*</span></label>
                         <input type="text" name="name" class="form-control" placeholder="Enter your full name" required>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="mb-4">
-                        <label class="form-label">Email address</label>
+                        <label class="form-label">Email address <span class="text-danger">*</span></label>
                         <input type="email" name="email" id="email" class="form-control" placeholder="Enter your email address" required>
                         <span class="text-danger" id="validate">&#9888;Email Already Available</span>
                     </div>
                 </div>
             </div>
             <div class="mb-4">
-                <label class="form-label">Address </label>
+                <label class="form-label">Address <span class="text-danger">*</span></label>
                 <textarea name="address" id="" class="form-control" required></textarea>
             </div>    
             <div class="row">
                 <div class="col-md-6">
                     <div class="mb-4">
-                        <label class="form-label">Phone No</label>
+                        <label class="form-label">Phone No <span class="text-danger">*</span></label>
                         <input type="tel" name="phone" class="form-control" placeholder="Enter your phone no" required>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="mb-4">
-                        <label class="form-label">Date Of Birth</label>
+                        <label class="form-label">Date Of Birth <span class="text-danger">*</span></label>
                         <input type="date" name="dob" class="form-control" placeholder="Enter your date of birth" required>
                     </div>
                 </div>
             </div>        
             
             <div class="mb-4">
-                <label class="form-label d-flex justify-content-between">Password </label>
+                <label class="form-label">Password <span class="text-danger">*</span></label>
                 <input type="password" name="password" class="form-control" placeholder="Enter your password" required>
             </div>
             <button type="submit" class="btn btn-primary btn-sign" id="btn" name="sign-up">Sign In</button>
