@@ -15,9 +15,9 @@
                 </a>
             </li>
             <li class="sidebar-item">
-                <a href="#" class="sidebar-link">
+                <a href="../Public/upload-prescription.php" class="sidebar-link">
                     <i class="lni lni-agenda"></i>
-                    <span>Task</span>
+                    <span>Upload Prescription</span>
                 </a>
             </li>
             <li class="sidebar-item">
