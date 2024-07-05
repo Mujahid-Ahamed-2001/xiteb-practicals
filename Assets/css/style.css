@@ -62,4 +62,8 @@
 {
     width: 30%;
 }
+#validate
+{
+    display: none;
+}
 /* login css end  */
