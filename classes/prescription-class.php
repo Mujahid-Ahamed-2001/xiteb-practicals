@@ -21,5 +21,28 @@ class prescription extends Connection
         else
         {return false;}
     }
+    public function user_get_prescription($id=null)
+    {
+        $user=$_SESSION["user_login"]["USID"];
+        $add=" ";
+        if($id!=null)
+        {
+            $add.=" AND prescription.id='$id'";
+        }
+        $sql="SELECT * FROM prescription 
+        INNER JOIN documents ON documents.pres_id=prescription.id
+        WHERE prescription.user='$user' AND documents.featured=1 ".$add;
+        $query=mysqli_query($this->conn,$sql);
+        return $query;
+
+    }
+    public function get_all_prescription()
+    {
+        $sql="SELECT * FROM prescription 
+        INNER JOIN documents ON documents.pres_id=prescription.id
+        WHERE documents.featured=1 ";
+        $query=mysqli_query($this->conn,$sql);
+        return $query;
+    }
 }
 ?>
