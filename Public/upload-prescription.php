@@ -1,4 +1,5 @@
 <?php 
+$usertype=0;
 include '../views/authcheck.php';
 ?>
 <!DOCTYPE html>
@@ -32,15 +33,54 @@ include '../views/authcheck.php';
         include '../views/sidebar.php';
         ?>
         <div class="main p-3">
+            <?php
+            if(isset($_SESSION["upload_update"]))
+            {
+                if($_SESSION["upload_update"]==1)
+                {
+                ?>
+                    <div class="alert alert-danger">
+                        Please Fill All The Required Fields.
+                    </div>
+                <?php
+                }
+                elseif($_SESSION["upload_update"]==2)
+                {
+                ?>
+                    <div class="alert alert-danger">
+                        Oops, Something Went Wrong.
+                    </div>
+                <?php
+                }
+                elseif($_SESSION["upload_update"]==3)
+                {
+                ?>
+                    <div class="alert alert-success">
+                        Prescription Uploaded Successfully
+                    </div>
+                <?php
+                }
+                else
+                {
+                ?>
+                    <div class="alert alert-danger">
+                        Oops, Something Went Wrong.
+                    </div>
+                <?php
+                }
+                unset($_SESSION["upload_update"]);
+            }
+            ?>
+            
             <div class="text-center">
                 <h1>
                     Upload Prescription
                 </h1>
             </div>
             <div class="row">
-                <div class="col-md-11">
+                <div class="col-md-12">
                     <div class="card p-3">
-                        <form action="../handlers/prescription-handler.php" method="post">
+                        <form action="../handlers/prescription-handler.php" method="post" enctype="multipart/form-data">
                             <div id="preview" class="mb-3"></div>
                             <div class="row">
                                 <div class="col-md-6">
@@ -52,7 +92,7 @@ include '../views/authcheck.php';
                                 <div class="col-md-6">
                                     <div class="mb-3">
                                         <label for="" class="form-lable">Delivery Address <span class="text-danger">*</span></label>
-                                        <textarea name="delivery-address" id="" class="form-control" required></textarea>
+                                        <textarea name="delivery" id="" class="form-control" required></textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -73,8 +113,8 @@ include '../views/authcheck.php';
                                 </div>
                                 <div class="col-md-6">
                                     <div class="mb-3">
-                                        <label for="" class="form-lable">Note <span class="text-danger">*</span></label>
-                                        <textarea name="Note" id="" class="form-control" required></textarea>
+                                        <label for="" class="form-lable">Note </label>
+                                        <textarea name="Note" id="" class="form-control"></textarea>
                                     </div>
                                 </div>
                             </div>

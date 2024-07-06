@@ -5,21 +5,39 @@
             </button>
             <div class="sidebar-logo">
                 <a href="dashboard.php">Xiteb</a>
+                <p style="font-size: 0.7rem;color:white; margin:0;">User: <?=$_SESSION["user_login"]["name"]?></p>
+                <p style="font-size: 0.7rem;color:white; margin:0;">Usertype: <?php 
+                if($_SESSION["user_login"]["usertype"]==0)
+                {
+                    echo "User";
+                }
+                else
+                {
+                    echo "Admin";
+                }
+                ?></p>
             </div>
         </div>
         <ul class="sidebar-nav">
             <li class="sidebar-item">
-                <a href="#" class="sidebar-link">
+                <a href="../Public/dashboard.php" class="sidebar-link">
                     <i class="lni lni-user"></i>
-                    <span>Profile</span>
+                    <span>Dashboard</span>
                 </a>
             </li>
-            <li class="sidebar-item">
-                <a href="../Public/upload-prescription.php" class="sidebar-link">
-                    <i class="lni lni-agenda"></i>
-                    <span>Upload Prescription</span>
-                </a>
-            </li>
+            <?php 
+            if($_SESSION["user_login"]["usertype"]==0)
+            {
+                ?>
+                <li class="sidebar-item">
+                    <a href="../Public/upload-prescription.php" class="sidebar-link">
+                        <i class="lni lni-agenda"></i>
+                        <span>Upload Prescription</span>
+                    </a>
+                </li>
+                <?php
+            }
+            ?>
             <li class="sidebar-item">
                 <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
                     data-bs-target="#auth" aria-expanded="false" aria-controls="auth">
