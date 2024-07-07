@@ -9,6 +9,7 @@ if(isset($usertype))
 {
     if($_SESSION["user_login"]["usertype"]!=$usertype)
     {
+        $_SESSION["qoute_update"]=4;
         header("Location: ../Public/dashboard.php");
     }
 }

@@ -47,6 +47,22 @@ $prescription= new prescription();
                         </div>
                         <?php
                     }
+                    elseif ($_SESSION["qoute_update"]==4) 
+                    {
+                        ?>
+                        <div class="alert alert-danger">
+                            Oops! You don't have permission to that page.
+                        </div>
+                        <?php
+                    }
+                    else
+                    {
+                        ?>
+                        <div class="alert alert-danger">
+                            Oops! No direct access allowed
+                        </div>
+                        <?php
+                    }
 
                     unset($_SESSION["qoute_update"]);
                 }

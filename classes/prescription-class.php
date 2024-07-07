@@ -51,10 +51,36 @@ class prescription extends Connection
         $query=mysqli_query($this->conn,$sql);
         return $query;
     }
+    public function notification($description,$user)
+    {
+        $sql="INSERT INTO `notification`(`notification`, `USID`) VALUES ('$description','$user')";
+        $query=mysqli_query($this->conn,$sql);
+
+    }
+    public function get_admin()
+    {
+        $sql="SELECT * FROM users WHERE usertype=1";
+        $query=mysqli_query($this->conn,$sql);
+        return $query;
+    }
     public function update_accept($status,$pres_id)
     {
         $sql="UPDATE prescription SET accept_reject='$status' WHERE id='$pres_id'";
         $query=mysqli_query($this->conn,$sql);
+        if($status==1)
+        {
+            $description="Qoutation Accepted";
+        }
+        else
+        {
+            $description="Qoutation Rejected";
+        }
+        $admins=$this->get_admin();
+        while ($row=mysqli_fetch_assoc($admins)) 
+        {
+            $user=$row["USID"];
+            $this->notification($description,$user);
+        }
         if ($query) 
         {
             return true;

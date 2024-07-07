@@ -33,6 +33,12 @@ if(isset($_POST["add_qoute"]))
                 echo 0;
             }
         }
+        
+        $pres=$qoutation->select_pres($pres_id);
+        $row=mysqli_fetch_assoc($pres);
+        $user=$row["user"];
+        $description="Qoutation Created";
+        $qoutation->notification($description,$user);
         $update=$qoutation->update_pres_status($pres_id,$status=1);
         if($update==true)
         {
@@ -49,6 +55,7 @@ if(isset($_POST["add_qoute"]))
 }
 else
 {
+    $_SESSION["qoute_update"]=5;  
     header("Location:../Public/dashboard.php");
 }
 ?>

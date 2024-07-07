@@ -88,6 +88,7 @@ else if(isset($_POST["accept_reject"]))
 }
 else
 {
+    $_SESSION["qoute_update"]=5;   
     header("Location:../Public/dashboard.php");
 }
 ?>

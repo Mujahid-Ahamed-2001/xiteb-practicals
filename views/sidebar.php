@@ -39,7 +39,7 @@
             }
             ?>
             <li class="sidebar-item">
-                <a href="#" class="sidebar-link">
+                <a href="notifications.php" class="sidebar-link">
                     <i class="lni lni-popup"></i>
                     <span>Notification</span>
                 </a>

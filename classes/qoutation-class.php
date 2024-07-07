@@ -14,6 +14,12 @@ class qoutation extends Connection
             return false;
         }
     }
+    public function select_pres($pres_id)
+    {
+        $sql="SELECT * FROM `prescription` WHERE id='$pres_id'";
+        $query=mysqli_query($this->conn,$sql);
+        return $query;
+    }
     public function update_pres_status($pres_id,$status)
     {
         $sql="UPDATE prescription SET status='$status' WHERE id='$pres_id'";
@@ -26,6 +32,12 @@ class qoutation extends Connection
         {
             return false;
         }
+    }
+    public function notification($description,$user)
+    {
+        $sql="INSERT INTO `notification`(`notification`, `USID`) VALUES ('$description','$user')";
+        $query=mysqli_query($this->conn,$sql);
+
     }
     public function get_qoute($pres_id)
     {
