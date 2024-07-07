@@ -10,6 +10,7 @@ include '../views/authcheck.php';
     function getFutureTimeSlotsWithinToday() {
         $timeSlots = [];
         $currentTime = new DateTime();
+        $currentTime->modify('+2 hours');
         $endOfDay = new DateTime('tomorrow');
         $endOfDay->modify('midnight');
     
