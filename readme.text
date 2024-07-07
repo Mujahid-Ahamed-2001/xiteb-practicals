@@ -17,6 +17,7 @@ Note:
 * the system is created with pure php using the oop conect.
 * a sample db has been provided in the db folder upload it to your xampp or wampp environment
 * create a db in the xamp/wampp with the name xiteb_practicals and upload the provided sample db
-* tools or packages used bootstrap,php mailer, jquery, and github for source control
+* tools or packages used bootstrap,php mailer, jquery, select2, and github for source control
+* you need an internet connection to use select2 jquery library.
 * user all the user is given with specific user access where pharmacy user has no access to upload prescription and normal user has no access to create qoutation
 
