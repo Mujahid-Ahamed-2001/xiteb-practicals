@@ -44,5 +44,11 @@ class prescription extends Connection
         $query=mysqli_query($this->conn,$sql);
         return $query;
     }
+    public function documents($prescription_id, $feature)
+    {
+        $sql="SELECT * FROM documents WHERE pres_id=$prescription_id AND featured=$feature";
+        $query=mysqli_query($this->conn,$sql);
+        return $query;
+    }
 }
 ?>

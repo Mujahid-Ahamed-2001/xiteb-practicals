@@ -1,4 +1,51 @@
 $(document).ready(function() {
+    $("#drug").select2();
+    $("#drug").on('change', function(){
+        var drugid=$(this).val();
+        if(drugid=="")
+        {
+            $("#price").val(0)
+        }
+        else
+        {
+        $.ajax({
+                    url:'../handlers/drug-handler.php',
+                        method:'post',
+                        data:{drugid:drugid},
+                        success:function(response)
+                        {
+                            $("#price").val(response);                 
+                            
+                        }
+                });
+        }
+        
+    });
+    $("#add").click(function(){
+        var drug=$("#drug").val();
+        var price=$("#price").val();
+        var qty=$("#qty").val();
+        if(price==0 || qty == 0 || price=="" || qty=="")
+        {
+            alert("Please fill the required filds");
+        }
+        else
+        {
+            $.ajax({
+                url:'../handlers/drug-handler.php',
+                method:'post',
+                data:{
+                    drug:drug,
+                    price:price,
+                    qty:qty
+                },
+                success:function(response)
+                {
+                    $("#tbody").append(response);
+                }
+            });
+        }
+    })
     $('#prescription').on('change', function() {
         var files = $(this)[0].files;
         var preview = $('#preview');
