@@ -25,13 +25,14 @@ class prescription extends Connection
     {
         $user=$_SESSION["user_login"]["USID"];
         $add=" ";
+        $end=" ORDER BY prescription.id DESC";
         if($id!=null)
         {
-            $add.=" AND prescription.id='$id'";
+            $add.=" AND prescription.id='$id' ";
         }
         $sql="SELECT * FROM prescription 
         INNER JOIN documents ON documents.pres_id=prescription.id
-        WHERE prescription.user='$user' AND documents.featured=1 ".$add;
+        WHERE prescription.user='$user' AND documents.featured=1 ".$add.$end;
         $query=mysqli_query($this->conn,$sql);
         return $query;
 
@@ -40,7 +41,7 @@ class prescription extends Connection
     {
         $sql="SELECT * FROM prescription 
         INNER JOIN documents ON documents.pres_id=prescription.id
-        WHERE documents.featured=1 ";
+        WHERE documents.featured=1 ORDER BY prescription.id DESC";
         $query=mysqli_query($this->conn,$sql);
         return $query;
     }
@@ -49,6 +50,19 @@ class prescription extends Connection
         $sql="SELECT * FROM documents WHERE pres_id=$prescription_id AND featured=$feature";
         $query=mysqli_query($this->conn,$sql);
         return $query;
+    }
+    public function update_accept($status,$pres_id)
+    {
+        $sql="UPDATE prescription SET accept_reject='$status' WHERE id='$pres_id'";
+        $query=mysqli_query($this->conn,$sql);
+        if ($query) 
+        {
+            return true;
+        }
+        else 
+        {
+            return false;
+        }
     }
 }
 ?>

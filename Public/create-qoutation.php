@@ -28,72 +28,49 @@ $doc_row=mysqli_fetch_assoc($prescription);
         include '../views/sidebar.php';
         ?>
         <div class="main p-3">
-            <?php
-            if(isset($_SESSION["upload_update"]))
-            {
-                if($_SESSION["upload_update"]==1)
-                {
-                ?>
-                    <div class="alert alert-danger">
-                        Please Fill All The Required Fields.
-                    </div>
-                <?php
-                }
-                elseif($_SESSION["upload_update"]==2)
-                {
-                ?>
-                    <div class="alert alert-danger">
-                        Oops, Something Went Wrong.
-                    </div>
-                <?php
-                }
-                elseif($_SESSION["upload_update"]==3)
-                {
-                ?>
-                    <div class="alert alert-success">
-                        Prescription Uploaded Successfully
-                    </div>
-                <?php
-                }
-                else
-                {
-                ?>
-                    <div class="alert alert-danger">
-                        Oops, Something Went Wrong.
-                    </div>
-                <?php
-                }
-                unset($_SESSION["upload_update"]);
-            }
-            ?>
             
             <div class="text-center">
                 <h1>
                     Create Qoutation
                 </h1>
+                <?php 
+                if(isset($_SESSION["qoute_update"]))
+                {
+                    if ($_SESSION["qoute_update"]==0) 
+                    {
+                        ?>
+                        <div class="alert alert-danger">
+                            Oops! Something Went Wrong, Please Try Again.
+                        </div>
+                        <?php
+                    }
+                    unset($_SESSION["qoute_update"]);
+                }
+                ?>
             </div>
             <div class="row">
                 <div class="col-md-12">
                     <div class="card p-3">
-                        <form action="../handlers/prescription-handler.php" method="post" enctype="multipart/form-data">
-                            <div id="preview" class="mb-3"></div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <img src="../Assets/uploads/<?=$doc_row["source"]?>" alt="" class="img">
-                                    <div class="row mt-3 mb-3">
-                                        <?php 
-                                            $prescription=new prescription();                                        
-                                            $prescription=$prescription->documents($prescription_id,$feature=0);
-                                            while($doc_row=mysqli_fetch_assoc($prescription))
-                                            {
-                                                ?>
-                                                <div class="col-md-3"><img src="../Assets/uploads/<?=$doc_row["source"]?>" alt="" class="img2"></div>
-                                                <?php
-                                            }
-                                        ?>
-                                    </div>
+                        <div id="preview" class="mb-3"></div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <img src="../Assets/uploads/<?=$doc_row["source"]?>" alt="" class="img">
+                                <div class="row mt-3 mb-3">
+                                    <?php 
+                                        $prescription=new prescription();                                        
+                                        $prescription=$prescription->documents($prescription_id,$feature=0);
+                                        while($doc_row=mysqli_fetch_assoc($prescription))
+                                        {
+                                            ?>
+                                            <div class="col-md-3"><img src="../Assets/uploads/<?=$doc_row["source"]?>" alt="" class="img2"></div>
+                                            <?php
+                                        }
+                                    ?>
                                 </div>
-                                <div class="col-md-6">
+                            </div>
+                            <div class="col-md-6">
+                                <form action="../handlers/qoutation-handler.php" method="post">
+                                    <input type="hidden" name="prescription_id" value="<?=$prescription_id?>">
                                     <div class="table-responsive">
                                         <table class="table">
                                             <thead>
@@ -105,6 +82,13 @@ $doc_row=mysqli_fetch_assoc($prescription);
                                             </thead>
                                             <tbody id="tbody">
                                             </tbody>
+                                            <tfoot>
+                                                <tr>
+                                                    <td></td>
+                                                    <td><b>Total</b><input type="hidden" name="" id="total" value="" readonly required></td>
+                                                    <td id="totalval">0.00</td>
+                                                </tr>
+                                            </tfoot>
                                         </table>
                                     </div>
                                     <div class="form mb-3 mt-3">
@@ -134,12 +118,17 @@ $doc_row=mysqli_fetch_assoc($prescription);
                                                 <td colspan="2"><a href="#" id="add" class="btn btn-primary">Add</a></td>
                                             </tr>
                                         </table>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-md-6"></div>
+                                            <div class="col-md-6 d-flex justify-content-end">
+                                                <button type="submit" class="btn btn-primary" name="add_qoute">Send Qoutation</button>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
+                                </form>
                             </div>
-                            <button type="submit" class="btn btn-primary" name="upload_prescription">Submit</button>
-                            
-                        </form>
+                        </div>
                     </div>
                 </div>
             </div>

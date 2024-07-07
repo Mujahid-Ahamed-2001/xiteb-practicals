@@ -1,30 +1,23 @@
 <?php 
 $usertype=0;
 include '../views/authcheck.php';
+include '../db/db.php';
+include '../classes/prescription-class.php';
+include '../classes/qoutation-class.php';
+if(!isset($_GET["pres_id"]) || $_GET["pres_id"]==0 || $_GET["pres_id"]=="")
+{
+    header("location:../Public/dashboard.php");
+}
+$prescription_id=$_GET["pres_id"];
+$prescription=new prescription();
+$prescription=$prescription->documents($prescription_id,$feature=1);
+$doc_row=mysqli_fetch_assoc($prescription);
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <?php 
     include '../views/head.php';
-    function getFutureTimeSlotsWithinToday() {
-        $timeSlots = [];
-        $currentTime = new DateTime();
-        $endOfDay = new DateTime('tomorrow');
-        $endOfDay->modify('midnight');
-    
-        while ($currentTime < $endOfDay) {
-            $timeSlots[] = $currentTime->format('Y-m-d H:i:s');
-            $currentTime->modify('+2 hours');
-        }
-    
-        // Remove the last slot if it exceeds the end of the day
-        if (end($timeSlots) >= $endOfDay->format('Y-m-d H:i:s')) {
-            array_pop($timeSlots);
-        }
-    
-        return $timeSlots;
-    }
     ?>
 </head>
 <body>
@@ -33,48 +26,10 @@ include '../views/authcheck.php';
         include '../views/sidebar.php';
         ?>
         <div class="main p-3">
-            <?php
-            if(isset($_SESSION["upload_update"]))
-            {
-                if($_SESSION["upload_update"]==1)
-                {
-                ?>
-                    <div class="alert alert-danger">
-                        Please Fill All The Required Fields.
-                    </div>
-                <?php
-                }
-                elseif($_SESSION["upload_update"]==2)
-                {
-                ?>
-                    <div class="alert alert-danger">
-                        Oops, Something Went Wrong.
-                    </div>
-                <?php
-                }
-                elseif($_SESSION["upload_update"]==3)
-                {
-                ?>
-                    <div class="alert alert-success">
-                        Prescription Uploaded Successfully
-                    </div>
-                <?php
-                }
-                else
-                {
-                ?>
-                    <div class="alert alert-danger">
-                        Oops, Something Went Wrong.
-                    </div>
-                <?php
-                }
-                unset($_SESSION["upload_update"]);
-            }
-            ?>
             
             <div class="text-center">
                 <h1>
-                    Upload Prescription
+                    View Qoutation
                 </h1>
             </div>
             <div class="row">
@@ -84,42 +39,72 @@ include '../views/authcheck.php';
                             <div id="preview" class="mb-3"></div>
                             <div class="row">
                                 <div class="col-md-6">
-                                    <div class="mb-3">
-                                        <label for="" class="form-lable">Upload Prescription <span class="text-danger">* Max 5 Images</span></label>
-                                        <input type="file" id="prescription" name="prescription[]" class="form-control" multiple accept="image/*" required>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="mb-3">
-                                        <label for="" class="form-lable">Delivery Address <span class="text-danger">*</span></label>
-                                        <textarea name="delivery" id="" class="form-control" required></textarea>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="mb-3">
-                                        <label for="" class="form-lable">Delivery Time Slot <span class="text-danger">*</span></label>
-                                        <select name="time" id="" class="form-control" required>
-                                            <option value="">Select Time</option>
-                                            <?php 
-                                            $slots = getFutureTimeSlotsWithinToday();
-                                            foreach ($slots as $slot) {
+                                    <img src="../Assets/uploads/<?=$doc_row["source"]?>" alt="" class="img">
+                                    <div class="row mt-3 mb-3">
+                                        <?php 
+                                            $prescription=new prescription();                                        
+                                            $prescription=$prescription->documents($prescription_id,$feature=0);
+                                            while($doc_row=mysqli_fetch_assoc($prescription))
+                                            {
                                                 ?>
-                                                <option value="<?=$slot?>"><?=$slot?></option>
+                                                <div class="col-md-3"><img src="../Assets/uploads/<?=$doc_row["source"]?>" alt="" class="img2"></div>
                                                 <?php
                                             }
-                                            ?>
-                                        </select>
+                                        ?>
                                     </div>
+
                                 </div>
                                 <div class="col-md-6">
-                                    <div class="mb-3">
-                                        <label for="" class="form-lable">Note </label>
-                                        <textarea name="Note" id="" class="form-control"></textarea>
+                                    <div class="table-responsive mb-3">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th style="width:250px;">Drug</th>
+                                                    <th>Quantity</th>
+                                                    <th>Amount</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="tbody">
+                                                <?php 
+                                                $qoutation= new qoutation();
+                                                $qoute=$qoutation->get_qoute($prescription_id);
+                                                while ($row=mysqli_fetch_assoc($qoute)) 
+                                                {
+                                                    $tr="<tr id='tr$row[drug_id]'>";
+                                                    $tr.="<td>";
+                                                    $tr.="<input type='hidden' name='drugid[]' value='$row[drug_id]'>";
+                                                    $tr.="<input type='hidden' name='qty[]' value='$row[quantitys]'>";
+                                                    $tr.="<input type='hidden' name='price[]' value='$row[prices]'>";
+                                                    $tr.="<input type='hidden' name='drug[]' value='$row[drugs]'>";
+                                                    $tr.="<input type='hidden' name='amount[]' id='amount' value='$row[amounts]'>";
+                                                    $tr.="$row[drugs]</td>";
+                                                    $tr.="<td>$row[prices] x $row[quantitys] </td>";
+                                                    $tr.="<td>$row[amounts] </td>";
+                                                    $tr.="</tr>";
+                                                    echo $tr;
+                                                }
+                                                ?>
+                                            </tbody>
+                                            <tfoot>
+                                                <tr>
+                                                    <td></td>
+                                                    <td><b>Total</b><input type="hidden" name="" id="total" value="" readonly required></td>
+                                                    <td id="totalval">0.00</td>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
                                     </div>
+                                    <form action="../handlers/prescription-handler.php" method="post">
+                                        <label for="" class="form-label">Accept/Reject Qoutation</label>
+                                        <select name="status" id="" class="form-control" required>
+                                            <option value="">Accept/Reject</option>
+                                            <option value="1">Accept</option>
+                                            <option value="2">Reject</option>
+                                        </select>
+                                        <button type="submit" class="btn btn-primary mt-2" name="accept_reject">Submit</button>
+                                    </form>
                                 </div>
-                            </div>
-                            <button type="submit" class="btn btn-primary" name="upload_prescription">Submit</button>
-                            
+                            </div>                            
                         </form>
                     </div>
                 </div>

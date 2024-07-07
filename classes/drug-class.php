@@ -8,7 +8,7 @@ class drug extends Connection
         {
             $add.=" WHERE DID=$id";
         }
-        $sql="SELECT * FROM drug";
+        $sql="SELECT * FROM drug".$add;
         $query=mysqli_query($this->conn,$sql);
         return $query;
     }

@@ -20,6 +20,20 @@ $prescription= new prescription();
             <div class="text-center">
                 <h1>
                     Dashboard
+                <?php 
+                if(isset($_SESSION["qoute_update"]))
+                {
+                    if ($_SESSION["qoute_update"]==1) 
+                    {
+                        ?>
+                        <div class="alert alert-success">
+                            Qoutation Sent
+                        </div>
+                        <?php
+                    }
+                    unset($_SESSION["qoute_update"]);
+                }
+                ?>
                 </h1>
             </div>
             <div class="row">
@@ -69,7 +83,13 @@ $prescription= new prescription();
                                                 }
                                                 elseif($row['status']==1)
                                                 {
-                                                    if($row['accept_reject']==1)
+                                                    if ($row['accept_reject']==null)
+                                                    {
+                                                        ?>
+                                                        <span class="badge bg-label-primary me-1">Qouted</span>
+                                                        <?php
+                                                    }   
+                                                    elseif($row['accept_reject']==1)
                                                     {
                                                         ?>
                                                         <span class="badge bg-label-warning me-1">Outation Accepted</span>
@@ -78,6 +98,7 @@ $prescription= new prescription();
                                                     elseif ($row['accept_reject']==0) 
                                                     {
                                                         ?>
+                                                        
                                                         <span class="badge bg-label-warning me-1">Outation rejected</span>
                                                         <?php
                                                     }
@@ -86,7 +107,7 @@ $prescription= new prescription();
                                                         ?>
                                                         <span class="badge bg-label-primary me-1">Qouted</span>
                                                         <?php
-                                                    }                                                
+                                                    }                                         
                                                 }
                                                 ?>
                                             </td>
@@ -154,7 +175,13 @@ $prescription= new prescription();
                                                     }
                                                     elseif($row['status']==1)
                                                     {
-                                                        if($row['accept_reject']==1)
+                                                        if ($row['accept_reject']==null)
+                                                        {
+                                                            ?>
+                                                            <span class="badge bg-label-primary me-1">Qouted</span>
+                                                            <?php
+                                                        }   
+                                                        elseif($row['accept_reject']==1)
                                                         {
                                                             ?>
                                                             <span class="badge bg-label-warning me-1">Outation Accepted</span>
@@ -163,6 +190,7 @@ $prescription= new prescription();
                                                         elseif ($row['accept_reject']==0) 
                                                         {
                                                             ?>
+                                                            
                                                             <span class="badge bg-label-warning me-1">Outation rejected</span>
                                                             <?php
                                                         }

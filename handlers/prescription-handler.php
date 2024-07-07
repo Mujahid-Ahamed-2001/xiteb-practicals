@@ -57,6 +57,18 @@ if(isset($_POST["upload_prescription"]))
         
     }
 }
+elseif ($_POST["accept_reject"]) 
+{
+    if(empty($_POST["status"]) )
+    {
+        $_SESSION["upload_update"]=1;
+        header("Location:../Public/Viewprescription.php");
+    }
+    else
+    {
+        
+    }
+}
 else
 {
     header("Location:../Public/dashboard.php");

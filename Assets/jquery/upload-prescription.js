@@ -1,4 +1,5 @@
 $(document).ready(function() {
+    grandtotal();
     $("#drug").select2();
     $("#drug").on('change', function(){
         var drugid=$(this).val();
@@ -21,6 +22,17 @@ $(document).ready(function() {
         }
         
     });
+    function grandtotal()
+    {
+        var tot=0;
+        $("body #amount").each(function(){
+            tot += parseFloat($(this).val());
+        })
+        var tot2=tot.toFixed(2);
+        $("#total").val(tot2);
+        $("#totalval").text(tot2);
+
+    }
     $("#add").click(function(){
         var drug=$("#drug").val();
         var price=$("#price").val();
@@ -28,6 +40,10 @@ $(document).ready(function() {
         if(price==0 || qty == 0 || price=="" || qty=="")
         {
             alert("Please fill the required filds");
+        }
+        else if($("#tr"+drug).length!=0)
+        {
+            alert("Drug Already Available");
         }
         else
         {
@@ -42,6 +58,9 @@ $(document).ready(function() {
                 success:function(response)
                 {
                     $("#tbody").append(response);
+                    grandtotal();
+                    $("#qty").val("");
+                    $("#drug").val("");
                 }
             });
         }
