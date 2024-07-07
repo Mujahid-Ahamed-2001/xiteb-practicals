@@ -14,6 +14,12 @@ class qoutation extends Connection
             return false;
         }
     }
+    public function user($id)
+    {
+        $sql="SELECT * FROM `users` WHERE USID='$id'";
+        $query=mysqli_query($this->conn,$sql);
+        return $query;
+    }
     public function select_pres($pres_id)
     {
         $sql="SELECT * FROM `prescription` WHERE id='$pres_id'";

@@ -38,13 +38,15 @@ if(isset($_POST["add_qoute"]))
         $pres=$qoutation->select_pres($pres_id);
         $row=mysqli_fetch_assoc($pres);
         $user=$row["user"];
+        $users=$qoutation->user($user);
+        $row=mysqli_fetch_assoc($users);
         $receiver=$row["email"];
         $description="Qoutation Created";
         $qoutation->notification($description,$user);
         $update=$qoutation->update_pres_status($pres_id,$status=1);
         $email=new email();
         $subject="Your Qoutation Has Been Created";
-        $body="";
+        $body="Your Qoutation has been created";
         $emails=$email->emailsend($subject,$body,$receiver);
         if($update==true)
         {

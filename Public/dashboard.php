@@ -175,7 +175,7 @@ $prescription= new prescription();
                                     }
                                     else
                                     {
-                                        echo "No Results to Show";
+                                        echo "<td colspan='7'>No Results to Show</td>";
                                     }
                                 }
                                 else
@@ -268,7 +268,7 @@ $prescription= new prescription();
                                     }
                                     else
                                     {
-                                        echo "No Result Found";
+                                        echo "<td colspan='7'>No Results to Show</td>";
                                     }
                                 }
                                 

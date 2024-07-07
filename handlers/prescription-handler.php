@@ -3,6 +3,7 @@ $usertype=0;
 include '../db/db.php';
 include '../views/authcheck.php';
 include '../classes/prescription-class.php';
+include '../classes/mail-class.php';
 $prescription= new prescription();
 if(isset($_POST["upload_prescription"]))
 {
@@ -71,6 +72,23 @@ else if(isset($_POST["accept_reject"]))
         $pres_id=$_POST["pres_id"];
         $status=$_POST["status"];
         $update=$prescription->update_accept($status,$pres_id);
+        $admins=$prescription->get_admin();
+        $email = new email();
+        while($row=mysqli_fetch_assoc($admins))
+        {
+            if($status==1)
+            {
+                $subject="Qoutation Accepted";
+                $body="Qoutation Accepted";
+            }
+            else
+            {
+                $subject="Qoutation Rejected";
+                $body="Qoutation Rejected";
+            }
+            $receiver=$row["email"];
+            $sendEmail=$email->emailsend($subject,$body,$receiver);
+        }
         if($update==true)
         {
             $_SESSION["qoute_update"]=2;

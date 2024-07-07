@@ -60,7 +60,8 @@ $(document).ready(function() {
                     $("#tbody").append(response);
                     grandtotal();
                     $("#qty").val("");
-                    $("#drug").val("");
+                    $("#drug").val(0);
+                    $('#drug option[value=""]').attr("selected", "selected");
                 }
             });
         }
