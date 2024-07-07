@@ -4,6 +4,7 @@ include '../db/db.php';
 include '../views/authcheck.php';
 include '../classes/drug-class.php';
 include '../classes/qoutation-class.php';
+include '../classes/mail-class.php';
 if(isset($_POST["add_qoute"]))
 {
     $pres_id=$_POST["prescription_id"];
@@ -37,9 +38,14 @@ if(isset($_POST["add_qoute"]))
         $pres=$qoutation->select_pres($pres_id);
         $row=mysqli_fetch_assoc($pres);
         $user=$row["user"];
+        $receiver=$row["email"];
         $description="Qoutation Created";
         $qoutation->notification($description,$user);
         $update=$qoutation->update_pres_status($pres_id,$status=1);
+        $email=new email();
+        $subject="Your Qoutation Has Been Created";
+        $body="";
+        $emails=$email->emailsend($subject,$body,$receiver);
         if($update==true)
         {
             echo 1;

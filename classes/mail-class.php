@@ -4,7 +4,7 @@ use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 class email extends Connection
 {
-    public function emailsend($subject,$body)
+    public function emailsend($subject,$body,$receiver)
     {
     //Include required PHPMailer files
         require 'phpmailer/PHPMailer.php';
@@ -42,7 +42,7 @@ class email extends Connection
         $mail->Body   .= $body;
     //Add recipient\
 
-    $mail->addCC('mujahidmjhd2001@gmail.com');
+    $mail->addCC($receiver);
     //Finally send email
         if ( $mail->send() ) {
             echo "Email Sent..!";
