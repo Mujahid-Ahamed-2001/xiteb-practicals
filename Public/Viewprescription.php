@@ -95,12 +95,25 @@ $doc_row=mysqli_fetch_assoc($prescription);
                                         </table>
                                     </div>
                                     <form action="../handlers/prescription-handler.php" method="post">
+                                        <input type="hidden" name="pres_id" value="<?=$prescription_id?>">
                                         <label for="" class="form-label">Accept/Reject Qoutation</label>
                                         <select name="status" id="" class="form-control" required>
                                             <option value="">Accept/Reject</option>
                                             <option value="1">Accept</option>
-                                            <option value="2">Reject</option>
+                                            <option value="0">Reject</option>
                                         </select>
+                                        <?php 
+                                        if (isset($_SESSION["upload_update"])) 
+                                        {
+                                            if($_SESSION["upload_update"]==1)
+                                            {
+                                                ?>
+                                                <span class="text-danger">Please Fill the Form</span>
+                                                <?php
+                                            }
+                                            unset($_SESSION["upload_update"]);
+                                        }
+                                        ?>
                                         <button type="submit" class="btn btn-primary mt-2" name="accept_reject">Submit</button>
                                     </form>
                                 </div>

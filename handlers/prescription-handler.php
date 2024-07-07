@@ -57,16 +57,33 @@ if(isset($_POST["upload_prescription"]))
         
     }
 }
-elseif ($_POST["accept_reject"]) 
+else if(isset($_POST["accept_reject"])) 
 {
-    if(empty($_POST["status"]) )
+    $pres_id=$_POST["pres_id"];
+
+    if(!isset($_POST["status"]))
     {
         $_SESSION["upload_update"]=1;
-        header("Location:../Public/Viewprescription.php");
+        header("Location:../Public/Viewprescription.php?pres_id=$pres_id");
     }
     else
     {
-        
+        $pres_id=$_POST["pres_id"];
+        $status=$_POST["status"];
+        $update=$prescription->update_accept($status,$pres_id);
+        if($update==true)
+        {
+            $_SESSION["qoute_update"]=2;
+            header("Location:../Public/dashboard.php");
+            echo $update;
+        }
+        else
+        {
+            $_SESSION["qoute_update"]=3;    
+            header("Location:../Public/dashboard.php");
+            echo $update;
+        }
+
     }
 }
 else

@@ -31,6 +31,23 @@ $prescription= new prescription();
                         </div>
                         <?php
                     }
+                    elseif ($_SESSION["qoute_update"]==2) 
+                    {
+                        ?>
+                        <div class="alert alert-success">
+                            Qoutation updated
+                        </div>
+                        <?php
+                    }
+                    elseif ($_SESSION["qoute_update"]==3) 
+                    {
+                        ?>
+                        <div class="alert alert-danger">
+                            Oops! Something Went Wrong.
+                        </div>
+                        <?php
+                    }
+
                     unset($_SESSION["qoute_update"]);
                 }
                 ?>
