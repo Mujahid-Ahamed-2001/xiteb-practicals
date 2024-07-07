@@ -1,0 +1,22 @@
+DB Credentials
+username: root
+Password: ""
+db name: xiteb_practicals
+Time taken: 18 hours 
+my git hub repository : https://github.com/Mujahid-Ahamed-2001/xiteb-practicals.git
+
+Admin Credentials: 
+email: mujahid.xiteb@gmail.com
+password: 2001
+
+User Credentials
+email: mujahid.xiteb2@gmail.com
+password: 2001@Muji
+
+Note:
+* the system is created with pure php using the oop conect.
+* a sample db has been provided in the db folder upload it to your xampp or wampp environment
+* create a db in the xamp/wampp with the name xiteb_practicals and upload the provided sample db
+* tools or packages used bootstrap,php mailer, jquery, and github for source control
+* user all the user is given with specific user access where pharmacy user has no access to upload prescription and normal user has no access to create qoutation
+
